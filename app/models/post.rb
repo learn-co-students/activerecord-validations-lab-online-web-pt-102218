@@ -1,8 +1,4 @@
-
-
-class Post < ActiveRecord::Base
-    include ActiveModel::Validations
-    validates_with MyValidator
+class MyValidator < ActiveModel::Validator
     def validate(post)
         if post.title
             post.errors[:title] << 'false' if ["Won't Believe", "Secret", "Top [number]", "Guess"].none? do |phrase|
@@ -10,6 +6,12 @@ class Post < ActiveRecord::Base
             end
         end
     end
+end
+
+class Post < ActiveRecord::Base
+    include ActiveModel::Validations
+    validates_with MyValidator
+
     validates :title, presence: true
     validates :content, length: {minimum: 250}
     validates :summary, length: {maximum: 250}
