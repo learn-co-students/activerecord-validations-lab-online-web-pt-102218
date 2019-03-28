@@ -9,7 +9,6 @@ class MyValidator < ActiveModel::Validator
 end
 
 class Post < ActiveRecord::Base
-    include ActiveModel::Validations
     validates_with MyValidator
 
     validates :title, presence: true
